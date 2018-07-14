@@ -1,95 +1,66 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
 
-        <title>Laravel</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{ config('app.name') }}</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+</head>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+<body>
+    <div id="app" class="h-screen">
+        <nav class="bg-blue-darker py-3 mb-10">
+            <ul class="list-reset flex justify-around">
+                <li class="text-white font-bold">Search</li>
+                <li class="text-white">List</li>
+            </ul>
+        </nav>
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+        <div class="flex justify-center font-thin tracking-wide text-xl mb-6">
+            Chemical shifts of common impurities on NMR
+        </div>
 
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+        <div class="flex justify-center">
+            <div class="flex-col">
+                <div id="nucleus" class="flex justify-center mb-3">
+                    <button class="border border-blue bg-blue text-white px-2 py-1 mr-2" href="">
+                        <sup>1</sup>H
+                    </button>
+                    <button class="border border-blue px-2 py-1 hover:bg-blue text-blue hover:text-white" href="">
+                        <sup>13</sup>C
+                    </button>
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div id="solvent" class="flex justify-center mb-4">
+                    <button class="border border-blue-dark bg-blue-dark text-white px-2 py-1 mr-2" href="">
+                        Chloroform-d
+                    </button>
+                    <button class="border border-blue-dark text-blue-dark px-2 py-1 hover:bg-blue-dark hover:text-white mr-2" href="">
+                        DMSO-d6
+                    </button>
+                    <button class="border border-blue-dark text-blue-dark px-2 py-1 hover:bg-blue-dark hover:text-white" href="">
+                        MeOD
+                    </button>
                 </div>
+
+                <div class="flex justify-center">
+                    <div class="w-screen flex justify-center">
+                        <input class="border-2 border-blue-darker w-3/5 sm:w-2/5 px-4 py-2 text-center mr-3" type="text" placeholder="2.03 ppm or pyridine"
+                            autofocus>
+                        <button class="border-2 border-blue-darker text-blue-darker px-2 py-2 text-lg hover:text-white hover:bg-blue-darker">Search</button>
+                    </div>
+
+                </div>
+
             </div>
         </div>
-    </body>
+
+    </div>
+
+    <script src="{{ asset('js/app.js') }}"></script>
+</body>
+
 </html>
