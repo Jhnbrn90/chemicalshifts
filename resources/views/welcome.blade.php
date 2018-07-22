@@ -8,6 +8,12 @@
     <title>{{ config('app.name') }}</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <style type="text/css">
+        #search:focus {
+            outline: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -35,7 +41,7 @@
                 </div>
 
                 <div id="solvent" class="flex justify-center mb-4">
-                    <button class="border border-blue-dark bg-blue-dark text-white px-2 py-1 mr-2" href="">
+                    <button class="border border-blue bg-blue-dark text-white px-2 py-1 mr-2" href="">
                         Chloroform-d
                     </button>
                     <button class="border border-blue-dark text-blue-dark px-2 py-1 hover:bg-blue-dark hover:text-white mr-2" href="">
@@ -45,15 +51,19 @@
                         MeOD
                     </button>
                 </div>
+                <form autocomplete="off">
+                <div class="flex justify-center mb-6">
+                    <div class="w-screen flex justify-center">
+                        <input id="search" class="mt-4 text-grey-darkest text-lg font-thin border h-12 shadow hover:shadow-md w-2/5 sm:w-2/5 px-4 py-2 mr-3 text-center" type="text" placeholder='Search for chemical shift ("2.01") or name ("pyridine")' autofocus>
+                    </div>
+                </div>
 
                 <div class="flex justify-center">
                     <div class="w-screen flex justify-center">
-                        <input class="border-2 border-blue-darker w-3/5 sm:w-2/5 px-4 py-2 text-center mr-3" type="text" placeholder="2.03 ppm or pyridine"
-                            autofocus>
-                        <button class="border-2 border-blue-darker text-blue-darker px-2 py-2 text-lg hover:text-white hover:bg-blue-darker">Search</button>
+                        <button class="bg-grey-lighter border border-white text-grey-dark hover:border-grey hover:text-grey-darkest px-4 py-2 rounded text">Search</button>
                     </div>
-
                 </div>
+                </form>
 
             </div>
         </div>
