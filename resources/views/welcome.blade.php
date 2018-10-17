@@ -54,7 +54,7 @@
                 <form autocomplete="off">
                 <div class="flex justify-center mb-6">
                     <div class="w-screen flex justify-center">
-                        <input id="search" class="mt-4 text-grey-darkest text-lg font-thin border h-12 shadow hover:shadow-md w-2/5 sm:w-2/5 px-4 py-2 mr-3 text-center" type="text" placeholder='Search for chemical shift ("2.01") or name ("pyridine")' autofocus>
+                        <input id="search" class="mt-4 text-grey-darkest text-lg font-thin border h-12 shadow hover:shadow-md w-4/5 sm:w-1/3 px-4 py-2 mr-3 text-center" type="text" placeholder='Search for chemical shift ("2.01")' autofocus>
                     </div>
                 </div>
 
