@@ -14,8 +14,31 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('select-nucleus', require('./components/SelectNucleus.vue'));
+Vue.component('nucleus-option', require('./components/NucleusOption.vue'));
+
+Vue.component('select-solvent', require('./components/SelectSolvent.vue'));
+Vue.component('solvent-option', require('./components/SolventOption.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        nucleus: "1H",
+        solvent: "CDCl3",
+        shift: "",
+    },
+
+    methods: {
+        searchShift() {
+            return window.location.href = `/search?shift=${this.shift}&nucleus=${this.nucleus}&solvent=${this.solvent}`;
+        },
+
+        setNucleus(nucleus) {
+            this.nucleus = nucleus;
+        },
+
+        setSolvent(solvent) {
+            this.solvent = solvent;
+        }
+    }
 });
