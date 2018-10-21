@@ -6333,6 +6333,10 @@ table {
   z-index: auto;
 }
 
+body {
+  font-family: "Manrope";
+}
+
 @media (min-width: 576px) {
   .sm\:list-reset {
     list-style: none;
