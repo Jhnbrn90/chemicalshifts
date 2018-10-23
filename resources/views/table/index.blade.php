@@ -6,39 +6,63 @@
 
 <div class="flex justify-center mb-4 mt-6">
     <div class="text-center">
-        <h2><sup>1</sup>H chemical shifts</h2>
+        <h3><sup>1</sup>H chemical shifts</h3> 
     </div>
 </div>
 
 <div class="container mx-auto">
-    <table class="table">
+    <table class="table text-sm">
         <thead>
             <tr>
                 <th scope="col">Compound</th>
-                <th scope="col">Origin</th>
-                <th scope="col">Multiplicity</th>
-                @foreach ($solvents as $solvent)
-                <th scope="col">{!! $solvent !!}</th>
-                @endforeach
+                <th>CDCl<sub>3</sub></th>
+                <th>DMSO-d6</th>
+                <th>MeOD</th>
             </tr>
         </thead>
         <tbody>
+            @foreach ($Hshifts as $compound => $solvents)
+            <tr class="{{ request('ref') == $compound ? 'table-info' : '' }}">
+                <th scope="row"><a id="{{ $compound }}">{{ $compound }}</a></th>
+                <td>
+                    @if (isset($solvents['CDCl3']))
+                    @forelse($solvents['CDCl3'] as $shift)
+                        @if ($shift->value !== null)
+                        {{ $shift->value }} 
+                        <span class="text-grey-darker"> ({!! $shift->getFormattedOrigin() !!}, {{ $shift->multiplicity }})</span>@if(!$loop->last),<br />@endif
+                        @endif
+                    @empty
+                    @endforelse
+                    @endif
+                </td>
+                <td>
+                    @if (isset($solvents['DMSO-d6']))
+                    @forelse($solvents['DMSO-d6'] as $shift)
+                       @if ($shift->value !== null)
+                        {{ $shift->value }} 
+                        <span class="text-grey-darker"> ({!! $shift->getFormattedOrigin() !!}, {{ $shift->multiplicity }})</span>@if(!$loop->last),<br />@endif
+                        @endif 
+                    @empty
+                    @endforelse
+                    @endif
+                </td> 
+                <td>
+                    @if (isset($solvents['MeOD']))
+                    @forelse($solvents['MeOD'] as $shift)
+                        @if ($shift->value !== null)
+                        {{ $shift->value }} 
+                        <span class="text-grey-darker"> ({!! $shift->getFormattedOrigin() !!}, {{ $shift->multiplicity }})</span>@if(!$loop->last),<br />@endif
+                        @endif
+                    @empty
+                    @endforelse
+                    @endif
+                </td>
+            </tr>
+            @endforeach
         </tbody>
     </table>
 </div>
 
-@foreach($Hshifts as $compound => $shifts) 
-    <h2>{{ $compound }}</h2>
-
-    @foreach ($shifts as $solvent => $shifts)
-        <h3>{{ $solvent }}</h3>
-        <ul>
-            @foreach ($shifts as $shift)
-            <li>{{ $shift->value }}</li>
-            @endforeach
-        </ul>
-    @endforeach
-@endforeach
 
 <div class="flex justify-center mb-4 mt-12">
     <div class="text-center">

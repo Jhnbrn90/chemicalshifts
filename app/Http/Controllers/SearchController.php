@@ -31,8 +31,8 @@ class SearchController extends Controller
         $shift = $request->shift;
         $nucleus = (new ChemicalFormula($request->nucleus))->transformNucleus();
 
-        $lowerShift = $request->shift * 0.75;
-        $upperShift = $request->shift * 1.25;
+        $lowerShift = $request->shift - 0.5;
+        $upperShift = $request->shift + 0.5;
 
         $shifts = ChemicalShift::where('solvent', $request->solvent)
             ->where('nucleus', $request->nucleus)
@@ -48,7 +48,16 @@ class SearchController extends Controller
                 function ($item) {
                     return $item->compound_id;
                 }
+            )
+            ->all();
+
+            usort(
+                $shifts, function ($a, $b) {
+                    return strcmp($a->deviation, $b->deviation);
+                }
             );
+
+            $shifts = collect($shifts);
 
         return view('search.results', compact('shifts', 'solvent', 'shift', 'nucleus'));
     }

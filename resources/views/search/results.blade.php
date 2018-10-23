@@ -1,4 +1,5 @@
 @extends ('layouts.master') 
+
 @section('content')
 <div class="flex justify-center font-thin tracking-wide text-xl mb-6">
   Chemical shifts of common impurities on NMR
@@ -12,7 +13,7 @@
 </div>
 
 <div class="container mx-auto">
-  <table class="table">
+  <table class="table table-fixed">
     <thead>
       <tr>
         <th scope="col">Compound</th>
@@ -24,7 +25,7 @@
     <tbody>
       @forelse ($shifts as $shift)
       <tr>
-        <th>{{ $shift->compound->name }}</th>
+        <th><a class="text-grey-darkest no-underline hover:text-blue-dark" href="/table?ref={{ $shift->compound->name }}#{{ $shift->compound->name }}">{{ $shift->compound->name }}</a></th>
         <td>{{ $shift->origin }}</td>
         <td>{{ $shift->multiplicity }}</td>
         <td>
