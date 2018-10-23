@@ -13,3 +13,4 @@
 
 Route::get('/', 'SearchController@index');
 Route::get('/search', 'SearchController@show');
+Route::get('/table', 'TableController@index');
