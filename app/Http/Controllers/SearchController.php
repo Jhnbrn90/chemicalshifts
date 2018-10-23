@@ -15,13 +15,21 @@ class SearchController extends Controller
 
     public function show(Request $request)
     {
-        $request->validate([
+        $request->validate(
+            [
             'shift'     => 'required',
             'solvent'   => 'required',
             'nucleus'   => 'required',
-        ]);
+            ]
+        );
+
+        if ($request->solvent == 'Chloroform-d') {
+            $request->solvent = 'CDCl3';
+        }
 
         $solvent = (new ChemicalFormula($request->solvent))->transform();
+        $shift = $request->shift;
+        $nucleus = (new ChemicalFormula($request->nucleus))->transformNucleus();
 
         $lowerShift = $request->shift * 0.75;
         $upperShift = $request->shift * 1.25;
@@ -31,13 +39,17 @@ class SearchController extends Controller
             ->whereBetween('value', [$lowerShift, $upperShift])
             ->orderBy('value')
             ->get()
-            ->each(function ($item) use ($request) {
-                $item['deviation'] = round(abs($item->value - $request->shift), 2);
-            })
-            ->unique(function ($item) {
-                return $item->compound_id;
-            });
+            ->each(
+                function ($item) use ($request) {
+                    $item['deviation'] = round(abs($item->value - $request->shift), 2);
+                }
+            )
+            ->unique(
+                function ($item) {
+                    return $item->compound_id;
+                }
+            );
 
-        return view('search.results', compact('shifts', 'solvent'));
+        return view('search.results', compact('shifts', 'solvent', 'shift', 'nucleus'));
     }
 }
