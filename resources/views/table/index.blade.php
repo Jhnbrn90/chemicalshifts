@@ -1,4 +1,20 @@
 @extends ('layouts.master') 
+
+@section('styles')
+<style>
+    thead th { 
+        position: sticky; 
+        top: 0; 
+        background-color: #1C3D5A;
+        color:white;
+        z-index:50;
+        padding: 20px 20px;
+    }
+
+    a {margin-top: -285px; padding-top: 285px;}
+</style>
+@endsection
+
 @section('content')
 <div class="flex justify-center font-thin tracking-wide text-xl mb-6">
     Chemical shifts of common impurities on NMR
@@ -10,19 +26,22 @@
     </div>
 </div>
 
+
 <div class="container mx-auto">
     <table class="table text-sm">
-        <thead>
-            <tr>
-                <th scope="col">Compound</th>
-                <th>CDCl<sub>3</sub></th>
-                <th>DMSO-d6</th>
-                <th>MeOD</th>
-            </tr>
-        </thead>
+        <div class="pin-t sticky">
+            <thead class="bg-white">
+                <tr>
+                    <th scope="col">Compound</th>
+                    <th>CDCl<sub>3</sub></th>
+                    <th>DMSO-d6</th>
+                    <th>MeOD</th>
+                </tr>
+            </thead>
+        </div>
         <tbody>
             @foreach ($Hshifts as $compound => $solvents)
-            <tr class="{{ request('ref') == $compound ? 'table-info' : '' }}">
+            <tr class="{{ request('ref') == $compound ? 'bg-blue-lighter' : '' }}">
                 <th scope="row"><a id="{{ $compound }}">{{ $compound }}</a></th>
                 <td>
                     @if (isset($solvents['CDCl3']))

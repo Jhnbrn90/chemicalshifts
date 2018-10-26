@@ -9,6 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     @include('partials._favicon')
+    @yield('styles')
 </head>
 
 <body>
