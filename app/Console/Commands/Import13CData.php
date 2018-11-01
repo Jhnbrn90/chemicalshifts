@@ -6,21 +6,21 @@ use App\Compound;
 use App\ChemicalShift;
 use Illuminate\Console\Command;
 
-class ImportData extends Command
+class Import13CData extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'import:1h';
+    protected $signature = 'import:13c';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Import the 1H values for compounds';
+    protected $description = 'Import the 13C data for compounds.';
 
     /**
      * Create a new command instance.
@@ -41,28 +41,32 @@ class ImportData extends Command
     {
         $compounds = Compound::all();
         foreach ($compounds as $compound) {
-            if ($compound->shifts()->where('nucleus', '1H')->count() > 0) {
+            if ($compound->shifts()->where('nucleus', '13C')->count() > 0) {
                 $this->info('Skipping '. $compound->name);
                 continue;
             }
+
+            if($this->confirm('Skip entry ' . $compound->name . ' ?')) {
+                $this->info('Skipping '. $compound->name);
+                continue;
+            }
+
             $solvents = [];
             while (!isset($finished[$compound->id])) {
                 $this->info('Please enter info for: ' . $compound->name);
                 $origin = $this->ask('Origin of signal, e.g. CH3');
-                $multiplicity = $this->ask('Multiplicity');
-                $solvents['CDCl3'] = $this->ask('Value for CDCl3');
-                $solvents['DMSO-d6'] = $this->ask('Value for DMSO-d6');
-                $solvents['MeOD'] = $this->ask('Value for MeOD');
+                $solvents['CDCl3'] = $this->ask('Value (ppm) for CDCl3');
+                $solvents['DMSO-d6'] = $this->ask('Value (ppm) for DMSO-d6');
+                $solvents['MeOD'] = $this->ask('Value (ppm) for MeOD');
 
                 foreach ($solvents as $name => $value) {
                     ChemicalShift::create(
                         [
                         'compound_id'   => $compound->id,
                         'origin'        => $origin,
-                        'multiplicity'  => $multiplicity,
                         'solvent'       => $name,
                         'value'         => $value,
-                        'nucleus'       => '1H'
+                        'nucleus'       => '13C'
                         ]
                     );
 
