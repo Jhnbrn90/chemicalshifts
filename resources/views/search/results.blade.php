@@ -25,7 +25,7 @@
     <tbody>
       @forelse ($shifts as $shift)
       <tr>
-        <th><a class="text-grey-darkest no-underline hover:text-blue-dark" href="/table?ref={{ $shift->compound->name }}#{{ $shift->compound->name }}">{{ $shift->compound->name }}</a></th>
+        <th><a class="text-grey-darkest no-underline hover:text-blue-dark" href="/table?ref={{ $shift->compound->name }}#{{ $shift->nucleus }}-{{ $shift->compound->name }}">{{ $shift->compound->name }}</a></th>
         <td>{{ $shift->origin }}</td>
         <td>{{ $shift->multiplicity }}</td>
         <td>

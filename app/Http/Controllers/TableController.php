@@ -16,6 +16,11 @@ class TableController extends Controller
             ->get()
             ->groupBy(['compound.name', 'solvent']);
 
-        return view('table.index', compact('Hshifts'));
+        $Cshifts = ChemicalShift::with('compound')
+            ->where('nucleus', '13C')
+            ->get()
+            ->groupBy(['compound.name', 'solvent']);
+
+        return view('table.index', compact('Hshifts', 'Cshifts'));
     }
 }

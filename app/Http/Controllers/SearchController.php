@@ -31,8 +31,15 @@ class SearchController extends Controller
         $shift = $request->shift;
         $nucleus = (new ChemicalFormula($request->nucleus))->transformNucleus();
 
-        $lowerShift = $request->shift - 0.5;
-        $upperShift = $request->shift + 0.5;
+        if ($request->nucleus == '1H') {
+            $difference = 0.5;
+            
+        } elseif ($request->nucleus == '13C') {
+            $difference = 6;
+        }
+
+        $lowerShift = $request->shift - $difference;
+        $upperShift = $request->shift + $difference;
 
         $shifts = ChemicalShift::where('solvent', $request->solvent)
             ->where('nucleus', $request->nucleus)
