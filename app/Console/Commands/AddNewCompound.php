@@ -40,7 +40,14 @@ class AddNewCompound extends Command
     {
         while (true) {
             $compound = $this->ask('Name of the compound');
-            Compound::create(['name' => $compound]);
+
+            if(Compound::where('name', $compound)->count() > 0) {
+                $this->info('This compound is already in the database');
+            } else {
+                $this->info($compound . ' was added');
+                Compound::create(['name' => $compound]);
+            }
+
         }
     }
 }
