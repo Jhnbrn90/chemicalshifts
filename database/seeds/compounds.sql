@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.7.19)
 # Database: chemicalshifts
-# Generation Time: 2018-11-01 21:54:49 +0000
+# Generation Time: 2018-11-02 13:55:30 +0000
 # ************************************************************
 
 
